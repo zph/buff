@@ -8,6 +8,8 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 Once Buff is released as a gem, the following instructions will work. For now please `git clone` the repo.
 
+#### Note: Fixtures are not currently public. They will be uploaded after sensitive info is sanitized.
+
 Add this line to your application's Gemfile:
 
     gem 'buff'
@@ -22,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-    Use it and note which API coverage exists.
+    Note which API coverage exists and have fun!
 
 ## API Coverage
 
