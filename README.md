@@ -26,21 +26,21 @@ Or install it yourself as:
 
 ## API Coverage
 
-Implemented
-==
-User
-Profiles (:get)
-Updates (:get)
+#### Implemented
 
-Not Implemented
-==
-Authentication (Try OAuth-buffer)
-Profiles (:post)
-Updates (:post & optional params)
-Links
-Info
-Error Codes
-Optional params for get requests
+* User
+* Profiles (:get)
+* Updates (:get)
+
+#### Not Implemented
+
+* Authentication (Try OAuth-buffer)
+* Profiles (:post)
+* Updates (:post & optional params)
+* Links
+* Info
+* Error Codes
+* Optional params for get requests
 
 ## Contributing
 
