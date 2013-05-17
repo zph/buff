@@ -12,19 +12,21 @@ Once Buff is released as a gem, the following instructions will work. For now pl
 
 Add this line to your application's Gemfile:
 
-    gem 'buff'
+    gem 'buff', :git => 'zph/buff'
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Once gem is pushed to RubyGems:
+> Or install it yourself as:
 
-    $ gem install buff
+>     $ gem install buff
 
 ## Usage
 
-    Note which API coverage exists and have fun!
+  * Note which API coverage exists and have fun!
+  * Authentication is not included in this gem (Try OAuth-buffer)
 
 ## API Coverage
 
@@ -39,9 +41,9 @@ Or install it yourself as:
 
 #### Not Implemented
 
-* Authentication (Try OAuth-buffer)
 * Profiles (:post)
 * Updates (:post)
+* Caching of some methods
 
 ## Contributing
 
