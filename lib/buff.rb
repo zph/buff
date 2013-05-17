@@ -1,12 +1,15 @@
 require "httparty"
 require "json"
 require "rash"
+require "CSV"
 
 require "buff/version"
 require "buff/core"
 require "buff/user"
 require "buff/profile"
 require "buff/update"
+require "buff/link"
+require "buff/error"
 
 module Buff
 
@@ -17,6 +20,8 @@ module Buff
   class Updates  < Hashie::Mash; end
   class Interaction < Hashie::Mash; end
   class Interactions < Hashie::Mash; end
+  class Link < Hashie::Mash; end
+  class Info < Hashie::Mash; end
 
   class Schedule < Hashie::Mash; end
   Schedules = Class.new(Array) do
@@ -28,6 +33,8 @@ module Buff
   InvalidIdLength = Class.new(ArgumentError)
   InvalidIdContent = Class.new(ArgumentError)
   MissingStatus = Class.new(ArgumentError)
+  APIError = Class.new(StandardError)
+  UnauthorizeRequest = Class.new(StandardError)
 
   class Client
     include HTTParty
@@ -35,6 +42,8 @@ module Buff
     include User
     include Profile
     include Update
+    include Link
+    include Error
 
     attr_accessor :access_token, :auth_query
 
@@ -47,6 +56,11 @@ module Buff
         'access_token' => access_token
         }
       }
+    end
+
+    def info
+      response = get("/info/configuration.json")
+      Buff::Info.new(response)
     end
   end
 end

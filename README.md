@@ -33,15 +33,15 @@ Or install it yourself as:
 * User
 * Profiles (:get)
 * Updates (:get)
+* Links
+* Info
+* Error Codes
 
 #### Not Implemented
 
 * Authentication (Try OAuth-buffer)
 * Profiles (:post)
 * Updates (:post & optional params)
-* Links
-* Info
-* Error Codes
 * Optional params for get requests
 
 ## Contributing
