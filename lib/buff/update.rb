@@ -16,15 +16,20 @@ module Buff
 
 
       def updates_by_profile_id(id, options={})
-        status = options.fetch(:status) { raise Buff::MissingStatus }
-        response = get("/profiles/#{id}/updates/#{status.to_s}.json")
+        optional_params = [ :page, :count, :since, :utc ]
+        status = options.fetch(:status) do
+          raise Buff::MissingStatus, "Include :pending or :sent in args"
+        end
+        options.delete(:status)
+        response = get("/profiles/#{id}/updates/#{status.to_s}.json", options )
         updates = response['updates'].map { |r| Buff::Update.new(r) }
         Buff::Updates.new (
               { total: response['total'], updates: updates } )
       end
 
       def interactions_by_update_id(id, options={})
-        response = get("/updates/#{id}/interactions.json")
+        optional_params = [:page, :count, :event]
+        response = get("/updates/#{id}/interactions.json", options)
         interactions = response['interactions'].map { |r| Buff::Interaction.new(r) }
         Buff::Interactions.new(
           { total: response['total'], interactions: interactions }

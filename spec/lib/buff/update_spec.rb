@@ -49,14 +49,27 @@ describe Buff::Client do
           total.should eq(1)
       end
 
-      it "allows optional params to be passed in"
+      it "utilizes the optional params" do
+        url = "https://api.bufferapp.com/1/profiles/4eb854340acb04e870000010/updates/pending.json?access_token=some_token&count=3&page=2"
+
+        stub_request(:get, url).
+          to_return(fixture('updates_by_profile_id_pending.txt'))
+        client.updates_by_profile_id(profile_id, status: :pending, page: 2, count: 3).
+          total.should eq(1)
+      end
     end
 
     describe "#interactions_by_update_id" do
-      it "requires an id"
-      it "connects to the correct endpoint"
-      it "returns an object where total is accessible"
-      it "allows optional params"
+      xit "requires an id"
+      xit "connects to the correct endpoint"
+      xit "returns an object where total is accessible"
+      it "allows optional params" do
+        url = "https://api.bufferapp.com/1/updates/4ecda476542f7ee521000006/interactions.json?access_token=some_token&page=2"
+        id = "4ecda476542f7ee521000006"
+        stub_request(:get, url).
+          to_return(fixture("interactions_by_update_id.txt"))
+        client.interactions_by_update_id(id, page: 2)
+      end
     end
 
     describe "#check_id" do

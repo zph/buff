@@ -41,8 +41,7 @@ Or install it yourself as:
 
 * Authentication (Try OAuth-buffer)
 * Profiles (:post)
-* Updates (:post & optional params)
-* Optional params for get requests
+* Updates (:post)
 
 ## Contributing
 

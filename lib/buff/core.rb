@@ -5,17 +5,21 @@ module Buff
 
       attr_reader :error_table
 
-      def get(path, options=auth_query)
-        response = self.class.get(path, options)
+      def get(path, options={})
+        params = set_params(options)
+        response = self.class.get(path, params)
+        interpret_response(response)
+      end
+
+      def interpret_response(response)
         case response.code
         when 200
           response
-        # when 401
-        #   raise Buff::UnauthorizeRequest
         else
           handle_response_code(response)
         end
       end
+
 
       def handle_response_code(response)
         error = Hashie::Mash.new( response.body )
@@ -66,6 +70,16 @@ module Buff
          "1050"=>"Client could not be found.",
          "1051"=>"No authorization to access client."
       }
+
+      def set_params(options)
+        params = {}
+        unless options.empty? || options.nil?
+          params[:query] = options.merge auth_query
+        else
+          params[:query] = auth_query
+        end
+        return params
+      end
 
     end
   end

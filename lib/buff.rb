@@ -51,11 +51,7 @@ module Buff
 
     def initialize(access_token)
       @access_token = access_token
-      @auth_query = {
-        :query => {
-        'access_token' => access_token
-        }
-      }
+      @auth_query = { :access_token => access_token }
     end
 
     def info
