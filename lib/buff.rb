@@ -13,6 +13,9 @@ require "buff/error"
 
 module Buff
 
+  begin
+    ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).readlines[2].chomp
+  end
   class UserInfo < Hashie::Mash; end
   class Profile  < Hashie::Mash; end
   class Response < Hashie::Mash; end
