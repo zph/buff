@@ -1,6 +1,6 @@
 # Buff
 
-Buff is a Buffer API Wrapper written in Ruby.  It attempts to provide more thorough API coverage than the existing gem.
+Buff is a Buffer API Wrapper written in Ruby.  It provides more thorough API coverage than the existing gem.
 
 Since the gem is currently in ALPHA development, the interface is prone to change.  Please wait until v0.1.0 is released to become reliant on interface.
 
