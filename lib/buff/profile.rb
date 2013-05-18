@@ -3,7 +3,7 @@ module Buff
     module Profile
       # Profile API Calls
       def profiles(options={})
-        response = get("/profiles.json")
+        response = get("/profiles.json", options)
         response.map { |profile| Buff::Profile.new(profile) }
       end
 
@@ -18,14 +18,13 @@ module Buff
       end
 
       # Requires :schedules to be set
-      def set_schedules(id, options={})
-        schedules = options.fetch(:schedules) { raise ArgumentError }
-        #process schedules object
-        # permit it to be hash or Buff::Schedules
-        # TODO left off here 20130515 10pm
-
-        response = post("/profiles/#{id}/schedules/update.json")
-        Buff::Response.new(response)
+      # currently wipes out schedule on site
+      # TODO massive bug
+      def set_schedules(id, params={})
+        schedules = params.fetch(:schedules) { raise ArgumentError }
+        options = { schedules: schedules }
+        response = post("/profiles/#{id}/schedules/update.json", {body: options})
+          Buff::Response.new(JSON.parse(response.body))
       end
 
     end

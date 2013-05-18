@@ -1,7 +1,6 @@
 require "httparty"
 require "json"
 require "rash"
-require "CSV"
 
 require "buff/version"
 require "buff/core"
@@ -16,6 +15,7 @@ module Buff
   begin
     ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).readlines[2].chomp
   end
+
   class UserInfo < Hashie::Mash; end
   class Profile  < Hashie::Mash; end
   class Response < Hashie::Mash; end
@@ -50,17 +50,29 @@ module Buff
 
     attr_accessor :access_token, :auth_query
 
-    base_uri "https://api.bufferapp.com/#{API_VERSION}"
 
     def initialize(access_token)
       @access_token = access_token
-      @auth_query = { :access_token => access_token }
     end
+
+    def auth_query
+      { :query => {
+          :access_token => @access_token 
+        }
+      }
+    end
+
+    base_uri "https://api.bufferapp.com/#{API_VERSION}"
+
+
 
     def info
       response = get("/info/configuration.json")
       Buff::Info.new(response)
     end
+
+
   end
+
 end
 

@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Buff::VERSION
   gem.authors       = ["ZPH"]
   gem.email         = ["Zander@civet.ws"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Buff is an API Wrapper Gem for Bufferapp.com's API}
+  gem.summary       = %q{Buff is an API Wrapper Gem for Bufferapp.com's API}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'multi_json'
   gem.add_runtime_dependency 'yajl-ruby'
-  # gem.add_runtime_dependency 'faraday_middleware'
   gem.add_runtime_dependency 'httparty'
   gem.add_runtime_dependency 'rash'
+  gem.add_runtime_dependency 'addressable'
 end

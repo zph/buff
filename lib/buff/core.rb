@@ -6,8 +6,16 @@ module Buff
       attr_reader :error_table
 
       def get(path, options={})
+        basic_request(path, :get, options)
+      end
+
+      def post(path, options={})
+        basic_request(path, :post, options)
+      end
+
+      def basic_request(path, verb, options={})
         params = set_params(options)
-        response = self.class.get(path, params)
+        response = self.class.send(verb.to_sym, path, params)
         interpret_response(response)
       end
 
@@ -25,7 +33,7 @@ module Buff
         error = Hashie::Mash.new( response.body )
         if ERROR_TABLE[error.code]
           error_explanation = "Buffer API Error Code: #{error.code}\n"
-          error_explanation += "Description: #{error.error}"
+          error_explanation += "HTTP Code: #{response.code}. Description: #{error.error}"
         else
           error_explanation = "Buffer API Unknown Error in Response"
         end
@@ -71,12 +79,12 @@ module Buff
          "1051"=>"No authorization to access client."
       }
 
-      def set_params(options)
-        params = {}
-        unless options.empty? || options.nil?
-          params[:query] = options.merge auth_query
+      def set_params(options={})
+        params = options
+        if params[:query]
+          params[:query].merge! auth_query[:query]
         else
-          params[:query] = auth_query
+          params[:query] = auth_query[:query]
         end
         return params
       end

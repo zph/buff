@@ -21,7 +21,7 @@ module Buff
           raise Buff::MissingStatus, "Include :pending or :sent in args"
         end
         options.delete(:status)
-        response = get("/profiles/#{id}/updates/#{status.to_s}.json", options )
+        response = get("/profiles/#{id}/updates/#{status.to_s}.json", {query: options} )
         updates = response['updates'].map { |r| Buff::Update.new(r) }
         Buff::Updates.new (
               { total: response['total'], updates: updates } )
@@ -29,7 +29,7 @@ module Buff
 
       def interactions_by_update_id(id, options={})
         optional_params = [:page, :count, :event]
-        response = get("/updates/#{id}/interactions.json", options)
+        response = get("/updates/#{id}/interactions.json", {query: options})
         interactions = response['interactions'].map { |r| Buff::Interaction.new(r) }
         Buff::Interactions.new(
           { total: response['total'], interactions: interactions }
