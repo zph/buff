@@ -1,8 +1,7 @@
-require "httparty"
-require "json"
-require "rash"
 require "faraday"
 require "faraday_middleware"
+require "json"
+require "rash"
 
 require "buff/version"
 require "buff/core"
