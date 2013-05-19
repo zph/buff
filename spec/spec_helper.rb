@@ -3,6 +3,9 @@ require 'rspec'
 require 'webmock/rspec'
 require 'json'
 
+require 'coveralls'
+Coveralls.wear!
+
 def fixture_path
   File.expand_path(File.join("..", "fixtures"), __FILE__)
 end

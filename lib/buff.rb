@@ -42,7 +42,6 @@ module Buff
   UnauthorizeRequest = Class.new(StandardError)
 
   class Client
-    include HTTParty
     include Core
     include User
     include Profile
