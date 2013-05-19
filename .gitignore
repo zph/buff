@@ -17,3 +17,5 @@ test/version_tmp
 tmp
 notes.txt
 .DS_STORE
+spec/fixtures/
+utility.rb
