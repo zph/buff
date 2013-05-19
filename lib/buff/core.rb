@@ -6,20 +6,21 @@ module Buff
       attr_reader :error_table
 
       def get(path, options={})
-        basic_request(path, :get, options)
+        options.merge!(auth_query)
+        response = @conn.get do |req|
+          req.url path.gsub(%r{^\/}, '')
+          req.params = options
+        end
+
+        interpret_response(response)
       end
 
-      def post(path, options={})
-        basic_request(path, :post, options)
-      end
-
-      def faraday_post(path="", post_data)
-        path.gsub!(%r{^\/}, '')
-        full_url = "#{path}?access_token=#{Buff::ACCESS_TOKEN}"
+      def post(path, post_data)
         @conn.post do |req|
-          req.url full_url
+          req.url path.gsub(%r{^\/}, '')
           req.headers['Content-Type'] = "application/x-www-form-urlencoded"
           req.body = post_data
+          req.params = auth_query
         end
       end
 
@@ -29,14 +30,13 @@ module Buff
       end
 
       def interpret_response(response)
-        case response.code
+        case response.status
         when 200
-          response
+          JSON.parse response.body
         else
           handle_response_code(response)
         end
       end
-
 
       def handle_response_code(response)
         error = Hashie::Mash.new( response.body )

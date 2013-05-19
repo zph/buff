@@ -11,11 +11,11 @@ describe Buff::Client do
     end
 
     it "connects to the correct endpoint" do
-      client.link(url)
+      client.link({url: url})
     end
 
     it "parses the shares of a link" do
-      client.link(url).shares.should eq(47348)
+      client.link({url: url}).shares.should eq(47348)
     end
 
   end

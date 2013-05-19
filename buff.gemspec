@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["Zander@civet.ws"]
   gem.description   = %q{Buff is an API Wrapper Gem for Bufferapp.com's API}
   gem.summary       = %q{Buff is an API Wrapper Gem for Bufferapp.com's API}
-  gem.homepage      = ""
+  gem.homepage      = "http://github.com/zph/buff"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -28,9 +28,8 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'multi_json'
   gem.add_runtime_dependency 'yajl-ruby'
-  gem.add_runtime_dependency 'httparty'
-  gem.add_runtime_dependency 'rash'
-  gem.add_runtime_dependency 'addressable'
   gem.add_runtime_dependency 'faraday'
   gem.add_runtime_dependency 'faraday_middleware'
+  gem.add_runtime_dependency 'rash'
+  gem.add_runtime_dependency 'addressable'
 end

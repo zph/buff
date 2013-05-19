@@ -53,7 +53,6 @@ module Buff
 
     attr_accessor :access_token, :auth_query
 
-
     def initialize(access_token)
       @access_token = access_token
       self.class.default_params :access_token => access_token
@@ -64,23 +63,13 @@ module Buff
     end
 
     def auth_query
-      { :query => {
-          :access_token => @access_token
-        }
-      }
+      { :access_token => @access_token }
     end
-
-    base_uri "https://api.bufferapp.com/#{API_VERSION}"
-
-
 
     def info
       response = get("/info/configuration.json")
       Buff::Info.new(response)
     end
-
-
   end
-
 end
 
