@@ -15,7 +15,7 @@ require "buff/encode"
 module Buff
 
   begin
-    ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).readlines[2].chomp
+    ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).readlines[2].chomp if File.exists?(File.expand_path("~/.bufferapprc"))
   end
 
   class UserInfo < Hashie::Mash; end
