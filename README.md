@@ -6,6 +6,8 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 ## Installation
 
+[![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master)
+
 Once Buff is released as a gem, the following instructions will work. For now please `git clone` the repo.
 
 #### Note: Fixtures are not currently public. They will be uploaded after sensitive info is sanitized.
