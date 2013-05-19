@@ -17,10 +17,17 @@ schedules[0][days][]=mon&schedules[0][days][]=tue&schedules[0][days][]=wed&sched
 EOF
 end
 
+def sample_schedules2
+    [{ days: %w[mon tue wed],
+      times: %w[12:00 17:00 18:00]},
+      {days: %w[mon tue wed],
+      times: %w[12:00 17:00 18:00]},
+    ]
+end
 def sample_schedules
   [
-    { days: %w[mon tue wed],
-      times: %w[12:00 17:00 18:00]}
+    [{ days: %w[mon tue wed],
+      times: %w[12:00 17:00 18:00]}]
   ]
   # @sample_schedules = JSON.parse <<EOF
   #   [{

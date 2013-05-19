@@ -48,24 +48,48 @@ module Buff
       def reorder_updates(profile_id, options={})
         # order, optional: offset, utc
         order = options.fetch(:order) { raise ArgumentError }
-        response = post("/profiles/#{profile_id}/updates/reorder.json")
+        response = faraday_post("/profiles/#{profile_id}/updates/reorder.json", options)
       end
 
       def shuffle_updates(profile_id, options={})
         # optional count, utc
-        response = post("/profiles/#{profile_id}/updates/shuffle.json", options)
+        response = faraday_post("/profiles/#{profile_id}/updates/shuffle.json", options)
       end
 
         #TODO
       def create_update(options={})
+
+        # POST Data
+        #     text=This%20is%20an%20example%20update&
+        #     profile_ids[]=4eb854340acb04e870000010&
+        #     profile_ids[]=4eb9276e0acb04bb81000067&
+        #     media[link]=http%3A%2F%2Fgoogle.com&
+        #     media[description]=The%20google%20homepage
+        # options = {
+        #   text: "bodytext",
+        #   profile_ids: ["230958239058", "23059u2350923"],
+        #   media: {
+        #     link: "http://example.com",
+        #     description: "That example page"
+        #   }
+        # }
+        response = faraday_post("/updates/create.json", options)
+        Hashie::Mash.new(JSON.parse response.body)
       end
 
-      def share_update(update_id)
-        response = post("/updates/#{update_id}/share.json")
+      def modify_update_text(update_id, options={})
+        # text, (now, media, utc)
+        options.fetch(:text) { raise ArgumentError }
+        response = faraday_post("/updates/#{update_id}/update.json", options)
+        Hashie::Mash.new(JSON.parse response.body)
       end
 
-      def destroy_update(update_id)
-        response = post("/updates/#{update_id}/destroy.json")
+      def share_update(update_id, options={})
+        response = faraday_post("/updates/#{update_id}/share.json", options)
+      end
+
+      def destroy_update(update_id, options={})
+        response = faraday_post("/updates/#{update_id}/destroy.json", options)
       end
 
       def check_id(id)

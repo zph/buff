@@ -11,6 +11,7 @@ require "buff/profile"
 require "buff/update"
 require "buff/link"
 require "buff/error"
+require "buff/encode"
 
 module Buff
 
@@ -58,7 +59,6 @@ module Buff
       self.class.default_params :access_token => access_token
       @conn = Faraday.new(:url => "https://api.bufferapp.com/1/") do |faraday|
           faraday.request  :url_encoded             # form-encode POST params
-          faraday.response :logger                  # log requests to STDOUT
           faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
       end
     end

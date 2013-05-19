@@ -93,9 +93,11 @@ describe Buff::Client do
     describe "#reorder_updates" do
       it "connects to appropriate endpoint" do
         id_no = "4ecda256512f7ee521000001"
-        stub_request(:post, "https://api.bufferapp.com/1/profiles/#{id_no}/updates/reorder.json?access_token=some_token").
-          to_return(:status => 200, :body => "", :headers => {})
         order_hash = { order: [id_no, id_no, id_no] }
+        stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4ecda256512f7ee521000001/updates/reorder\.json\?access_token=.*}).
+                   with(:body => {"order"=>["4ecda256512f7ee521000001", "4ecda256512f7ee521000001", "4ecda256512f7ee521000001"]},
+                        :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.8.7'}).
+                   to_return(:status => 200, :body => "", :headers => {})
         client.reorder_updates(id_no, order_hash)
 
       end
@@ -104,14 +106,14 @@ describe Buff::Client do
     describe "#shuffle_updates" do
       it "connects to appropriate endpoint" do
         id_no = "4ecda256512f7ee521000001"
-        stub_request(:post, "https://api.bufferapp.com/1/profiles/#{id_no}/updates/shuffle.json?access_token=some_token").
-          to_return(:status => 200, :body => "")
+        stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4ecda256512f7ee521000001/updates/shuffle\.json\?access_token=.*}).
+                 with(:body => {"count"=>"10"})
         client.shuffle_updates(id_no, {count: 10})
       end
     end
     describe "#share_update" do
       it "should connect to correct endpoint" do
-        stub_request(:post, "https://api.bufferapp.com/1/updates/4ecda256512f7ee521000001/share.json?access_token=some_token").
+        stub_request(:post, %r{https://api\.bufferapp\.com/1/updates/4ecda256512f7ee521000001/share\.json\?access_token=.*}).
            to_return(:status => 200, :body => "{'success': true}", :headers => {})
         update_id = "4ecda256512f7ee521000001"
         client.share_update(update_id)
@@ -120,7 +122,7 @@ describe Buff::Client do
 
     describe "#destroy_update" do
       it "connects to correct endpoint" do
-        stub_request(:post, "https://api.bufferapp.com/1/updates/4ecda256512f7ee521000001/destroy.json?access_token=some_token").
+        stub_request(:post, %r{https://api\.bufferapp\.com/1/updates/4ecda256512f7ee521000001/destroy\.json\?access_token=.*}).
            to_return(fixture('destroy.txt'))
              update_id = "4ecda256512f7ee521000001"
         client.destroy_update(update_id)

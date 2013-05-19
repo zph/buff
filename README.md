@@ -35,15 +35,15 @@ Once gem is pushed to RubyGems:
 * User
 * Profiles (:get)
 * Updates (:get)
+* Updates (:post, #create_update, #change_update_text, #destroy_update, #share_update, #shuffle_updates, #reorder_updates)
 * Links
 * Info
 * Error Codes
 
 #### Not Implemented
 
-* Profiles (:post)
-* Updates (:post)
-* Caching of some methods
+* Profiles (:post, #set_schedules)
+* Caching
 
 ## Contributing
 
