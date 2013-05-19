@@ -53,7 +53,6 @@ module Buff
 
     def initialize(access_token)
       @access_token = access_token
-      self.class.default_params :access_token => access_token
       @conn = Faraday.new(:url => "https://api.bufferapp.com/1/") do |faraday|
           faraday.request  :url_encoded             # form-encode POST params
           faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
