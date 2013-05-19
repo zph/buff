@@ -13,9 +13,18 @@ module Buff
         basic_request(path, :post, options)
       end
 
+      def faraday_post(path="", post_data)
+        path.gsub!(%r{^\/}, '')
+        full_url = "#{path}?access_token=#{Buff::ACCESS_TOKEN}"
+        @conn.post do |req|
+          req.url full_url
+          req.headers['Content-Type'] = "application/x-www-form-urlencoded"
+          req.body = post_data
+        end
+      end
+
       def basic_request(path, verb, options={})
-        params = set_params(options)
-        response = self.class.send(verb.to_sym, path, params)
+        response = self.class.send(verb.to_sym, path, options)
         interpret_response(response)
       end
 
@@ -78,16 +87,6 @@ module Buff
          "1050"=>"Client could not be found.",
          "1051"=>"No authorization to access client."
       }
-
-      def set_params(options={})
-        params = options
-        if params[:query]
-          params[:query].merge! auth_query[:query]
-        else
-          params[:query] = auth_query[:query]
-        end
-        return params
-      end
 
     end
   end

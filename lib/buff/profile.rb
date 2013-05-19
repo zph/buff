@@ -20,10 +20,11 @@ module Buff
       # Requires :schedules to be set
       # currently wipes out schedule on site
       # TODO massive bug
-      def set_schedules(id, params={})
-        schedules = params.fetch(:schedules) { raise ArgumentError }
-        options = { schedules: schedules }
-        response = post("/profiles/#{id}/schedules/update.json", {body: options})
+      # currently deletes schedule due to malformed request
+      def set_schedules(id, options={})
+        # schedules = options.fetch(:schedules) { raise ArgumentError }
+        # options = { schedules: schedules }
+        response = faraday_post("/profiles/#{id}/schedules/update.json", options )
           Buff::Response.new(JSON.parse(response.body))
       end
 

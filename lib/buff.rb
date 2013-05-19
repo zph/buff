@@ -1,6 +1,8 @@
 require "httparty"
 require "json"
 require "rash"
+require "faraday"
+require "faraday_middleware"
 
 require "buff/version"
 require "buff/core"
@@ -53,11 +55,17 @@ module Buff
 
     def initialize(access_token)
       @access_token = access_token
+      self.class.default_params :access_token => access_token
+      @conn = Faraday.new(:url => "https://api.bufferapp.com/1/") do |faraday|
+          faraday.request  :url_encoded             # form-encode POST params
+          faraday.response :logger                  # log requests to STDOUT
+          faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+      end
     end
 
     def auth_query
       { :query => {
-          :access_token => @access_token 
+          :access_token => @access_token
         }
       }
     end

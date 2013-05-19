@@ -46,14 +46,26 @@ module Buff
         # /updates/:id/destroy
 
       def reorder_updates(profile_id, options={})
+        # order, optional: offset, utc
+        order = options.fetch(:order) { raise ArgumentError }
         response = post("/profiles/#{profile_id}/updates/reorder.json")
       end
 
       def shuffle_updates(profile_id, options={})
-        response = post("/profiles/#{profile_id}/updates/shuffle.json")
+        # optional count, utc
+        response = post("/profiles/#{profile_id}/updates/shuffle.json", options)
       end
 
+        #TODO
       def create_update(options={})
+      end
+
+      def share_update(update_id)
+        response = post("/updates/#{update_id}/share.json")
+      end
+
+      def destroy_update(update_id)
+        response = post("/updates/#{update_id}/destroy.json")
       end
 
       def check_id(id)

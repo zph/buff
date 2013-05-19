@@ -89,5 +89,42 @@ describe Buff::Client do
           should raise_error(Buff::InvalidIdContent)
       end
     end
+
+    describe "#reorder_updates" do
+      it "connects to appropriate endpoint" do
+        id_no = "4ecda256512f7ee521000001"
+        stub_request(:post, "https://api.bufferapp.com/1/profiles/#{id_no}/updates/reorder.json?access_token=some_token").
+          to_return(:status => 200, :body => "", :headers => {})
+        order_hash = { order: [id_no, id_no, id_no] }
+        client.reorder_updates(id_no, order_hash)
+
+      end
+    end
+
+    describe "#shuffle_updates" do
+      it "connects to appropriate endpoint" do
+        id_no = "4ecda256512f7ee521000001"
+        stub_request(:post, "https://api.bufferapp.com/1/profiles/#{id_no}/updates/shuffle.json?access_token=some_token").
+          to_return(:status => 200, :body => "")
+        client.shuffle_updates(id_no, {count: 10})
+      end
+    end
+    describe "#share_update" do
+      it "should connect to correct endpoint" do
+        stub_request(:post, "https://api.bufferapp.com/1/updates/4ecda256512f7ee521000001/share.json?access_token=some_token").
+           to_return(:status => 200, :body => "{'success': true}", :headers => {})
+        update_id = "4ecda256512f7ee521000001"
+        client.share_update(update_id)
+      end
+    end
+
+    describe "#destroy_update" do
+      it "connects to correct endpoint" do
+        stub_request(:post, "https://api.bufferapp.com/1/updates/4ecda256512f7ee521000001/destroy.json?access_token=some_token").
+           to_return(fixture('destroy.txt'))
+             update_id = "4ecda256512f7ee521000001"
+        client.destroy_update(update_id)
+      end
+    end
   end
 end

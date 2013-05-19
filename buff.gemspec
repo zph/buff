@@ -31,4 +31,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'httparty'
   gem.add_runtime_dependency 'rash'
   gem.add_runtime_dependency 'addressable'
+  gem.add_runtime_dependency 'faraday'
+  gem.add_runtime_dependency 'faraday_middleware'
 end
