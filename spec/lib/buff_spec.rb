@@ -18,9 +18,8 @@ describe Buff::Client do
     let(:rash) { subject.user_info }
 
     before(:each) do
-      stub_request(:get, 'https://api.bufferapp.com/1/user.json').
-        with(query: { 'access_token' => 'some_token'}).
-        to_return(fixture('user_authenticated.txt'))
+      url = "#{ base_path }/user.json"
+      stub_with_to_return(:get, url, "user_authenticated.txt")
     end
 
     it "returns a Rash object" do
@@ -36,9 +35,8 @@ describe Buff::Client do
     let(:rash) { Buff::Client.new("some_token").profiles }
 
     before(:each) do
-      stub_request(:get, 'https://api.bufferapp.com/1/profiles.json').
-        with(query: { 'access_token' => 'some_token'}).
-        to_return(fixture('profile_authenticated.txt'))
+      url = "#{ base_path }/profiles.json"
+      stub_with_to_return(:get, url, 'profile_authenticated.txt')
     end
 
     it "makes the correct url request" do
@@ -57,9 +55,9 @@ describe Buff::Client do
   describe "#profile_by_id" do
     let(:id) { "5160746d54f04a5e3a00000f" }
     before(:each) do
-      stub_request(:get, "https://api.bufferapp.com/1/profiles/#{id}.json").
-        with(query: { 'access_token' => 'some_token'}).
-        to_return(fixture('profiles_by_id.txt'))
+      url = "#{base_path}/profiles/#{id}.json"
+      fixture_name = "profiles_by_id.txt"
+      stub_with_to_return(:get, url, fixture_name)
     end
 
     let(:rash) { Buff::Client.new("some_token").profile_by_id(id) }
@@ -75,9 +73,9 @@ describe Buff::Client do
 
   describe "#profile_schedules_by_id" do
     before(:each) do
-      stub_request(:get, "https://api.bufferapp.com/1/profiles/#{id}/schedules.json").
-        with(query: { 'access_token' => 'some_token'}).
-        to_return(fixture('profile_schedules_by_id.txt'))
+      url = "#{base_path}/profiles/#{id}/schedules.json"
+      fixture_name = 'profile_schedules_by_id.txt'
+      stub_with_to_return(:get, url, fixture_name)
     end
 
     let(:rash) { Buff::Client.new("some_token").profile_schedules_by_id(id) }
@@ -107,7 +105,7 @@ describe Buff::Client do
 
   describe "#info" do
     before do
-      stub_request(:get, "https://api.bufferapp.com/1/info/configuration.json?access_token=some_token").
+      stub_request(:get, "#{base_path}/info/configuration.json?access_token=some_token").
         to_return(fixture("info.txt"))
     end
 
@@ -182,8 +180,7 @@ EOF
 
   it "dumping a double schedule yields correct json" do
     schedules = Buff::Schedules.new
-    schedules << @schedule
-    schedules << @schedule
+    schedules << @schedule << @schedule
     @sample_schedules = @sample_schedules.to_json
 
     schedules.dump.should eq(@sample_schedules)
@@ -195,7 +192,7 @@ describe Buff::Client::Core do
   let(:client) { Buff::Client.new("some_token") }
   describe "#get" do
     it "delegates to #handle_response_code when code != 200" do
-       stub_request(:get, "https://api.bufferapp.com/1/info/configuration.json?access_token=some_token").
+       stub_request(:get, "#{base_path}/info/configuration.json?access_token=some_token").
          to_return(:status => 403, :body => "", :headers => {})
        client.should_receive(:handle_response_code).once
        client.info
@@ -203,7 +200,7 @@ describe Buff::Client::Core do
 
 
     it "does not delegate to #handle_response_code when code = 200" do
-       stub_request(:get, "https://api.bufferapp.com/1/info/configuration.json?access_token=some_token").
+       stub_request(:get, "#{base_path}/info/configuration.json?access_token=some_token").
          to_return(fixture("link.txt"))
        client.should_not_receive(:handle_response_code)
        client.info
@@ -214,7 +211,7 @@ describe Buff::Client::Core do
 
     it "connects to the correct endpoint" do
 
-#TODO improve test
+    #TODO improve test
       response = %Q[{"success": true, "message": "Schedule saved successfully"}]
       id = "4eb854340acb04e870000010"
       stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4eb854340acb04e870000010/schedules/update\.json\?access_token=.*}).
@@ -226,8 +223,9 @@ describe Buff::Client::Core do
     end
 
     xit "does not delegate to #handle_response_code when code = 200" do
-       stub_request(:get, "https://api.bufferapp.com/1/info/configuration.json?access_token=some_token").
-         to_return(fixture("link.txt"))
+      url = "#{base_path}/info/configuration.json"
+      fixture_name = "link.txt"
+      stub_with_to_return(:get, url, fixture_name)
        client.should_not_receive(:handle_response_code)
        client.info
     end
@@ -243,9 +241,8 @@ describe Buff::Client::Core do
     context "fails gracefully with undocumented responses" do
       it "responds to 401 unauthorized response" do
         id = "4eb8565e0acb04bb82000004"
-        stub_request(:get, "https://api.bufferapp.com/1/updates/#{id}.json?access_token=some_token").
-          to_return(fixture("update_by_id_non_auth.txt"))
-
+        url = "#{base_path}/updates/#{id}.json?access_token=some_token"
+        stub_with_to_return(:get, url, "update_by_id_non_auth.txt")
         lambda { client.update_by_id(id) }.
           should raise_error(Buff::APIError)
       end

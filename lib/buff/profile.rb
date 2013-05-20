@@ -20,6 +20,7 @@ module Buff
       # currently deletes schedule due to malformed request
       def set_schedules(id, options={})
         # schedules = options.fetch(:schedules) { raise ArgumentError }
+        raise ArgumentError unless ENV['BUFFER_DEBUG']
         response = post("/profiles/#{id}/schedules/update.json", options )
           Buff::Response.new(JSON.parse(response.body))
       end

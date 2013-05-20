@@ -6,8 +6,8 @@ describe Buff::Client do
     let(:url) { %q{http://bufferapp.com} }
 
     before do
-      stub_request(:get, "https://api.bufferapp.com/1/links/shares.json?access_token=some_token&url=http://bufferapp.com").
-        to_return(fixture('link.txt'))
+      stub_request(:get, "#{ base_path }/links/shares.json?#{ access_token_param }&url=http://bufferapp.com").
+      to_return(fixture('link.txt'))
     end
 
     it "connects to the correct endpoint" do

@@ -15,6 +15,8 @@ module Buff
         interpret_response(response)
       end
 
+      #TODO post data isn't limited to body requests in post
+      #split out the options data separately
       def post(path, post_data)
         @conn.post do |req|
           req.url path.gsub(%r{^\/}, '')

@@ -26,7 +26,28 @@ def sample_schedules2
       {days: %w[mon tue wed],
       times: %w[12:00 17:00 18:00]},
     ]
+
 end
+
+def base_path
+  "https://api.bufferapp.com/1"
+end
+
+def access_token_param
+  "access_token=some_token"
+end
+
+def stub_with_to_return(request_type, url, fixture_name, query_hash={})
+  query = access_hash.merge(query_hash)
+  stub_request(request_type, url).
+     with(query: query).
+     to_return(fixture(fixture_name))
+end
+
+def access_hash
+  { 'access_token' => 'some_token'}
+end
+
 def sample_schedules
   [
     [{ days: %w[mon tue wed],

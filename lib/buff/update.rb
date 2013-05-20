@@ -30,7 +30,7 @@ module Buff
 
       def reorder_updates(profile_id, options={})
         # order, optional: offset, utc
-        order = options.fetch(:order) { raise ArgumentError }
+        options.fetch(:order) { raise ArgumentError }
         response = post("/profiles/#{profile_id}/updates/reorder.json", options)
       end
 
@@ -41,13 +41,6 @@ module Buff
 
         #TODO
       def create_update(options={})
-
-        # POST Data
-        #     text=This%20is%20an%20example%20update&
-        #     profile_ids[]=4eb854340acb04e870000010&
-        #     profile_ids[]=4eb9276e0acb04bb81000067&
-        #     media[link]=http%3A%2F%2Fgoogle.com&
-        #     media[description]=The%20google%20homepage
         # options = {
         #   text: "bodytext",
         #   profile_ids: ["230958239058", "23059u2350923"],
