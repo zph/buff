@@ -2,6 +2,7 @@ require "faraday"
 require "faraday_middleware"
 require "json"
 require "rash"
+require "addressable/uri"
 
 require "buff/version"
 require "buff/core"

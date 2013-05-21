@@ -214,9 +214,9 @@ describe Buff::Client::Core do
     #TODO improve test
       response = %Q[{"success": true, "message": "Schedule saved successfully"}]
       id = "4eb854340acb04e870000010"
-      stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4eb854340acb04e870000010/schedules/update\.json\?access_token=.*}).
-               with(:body => {"schedules"=>{"days"=>["mon", "tue", "wed"], "times"=>["12:00", "17:00", "18:00"]}},
-                    :headers => {'Accept'=>'*/*', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.8.7'}).
+      stub_request(:post, "#{ base_path }/profiles/#{id}/schedules/update.json?access_token=some_token").
+         with(:body => {"schedules"=>"schedules[0][days][]=mon&schedules[0][days][]=tue&schedules[0][days][]=wed&schedules[0][times][]=12%3A00&schedules[0][times][]=17%3A00&schedules[0][times][]=18%3A00"},
+              :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.8.7'}).
                to_return(:status => 200, :body => response, :headers => {})
        client.set_schedules(id, :schedules => sample_schedules).success.
          should eq(true)

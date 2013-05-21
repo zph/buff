@@ -49,10 +49,8 @@ def access_hash
 end
 
 def sample_schedules
-  [
     [{ days: %w[mon tue wed],
       times: %w[12:00 17:00 18:00]}]
-  ]
   # @sample_schedules = JSON.parse <<EOF
   #   [{
   #       "days" : [
