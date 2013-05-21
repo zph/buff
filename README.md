@@ -13,7 +13,7 @@ Once Buff is released as a gem, the following instructions will work. For now pl
 
 #### Note: Fixtures are not currently public. They will be uploaded after sensitive info is sanitized.
 
-Add this line to your application's Gemfile:
+Add this line to your application's Gemfile to include HEAD code:
 
     gem 'buff', :github => 'zph/buff'
 
@@ -21,10 +21,9 @@ And then execute:
 
     $ bundle
 
-Once gem is pushed to RubyGems:
-> Or install it yourself as:
+Or install RubyGems version, which will receive more attention to stability:
 
->     $ gem install buff
+    $ gem install buff
 
 ## Usage
 
@@ -73,4 +72,4 @@ Issues, refactoring, and feedback are all welcome.
 
 Also, this project is newcomer friendly!! We'd love to be your first Open Source Software contribution and would be happy to assist in that process.
 
-Crafted with care by Zander. Reach out and say hi at [@_ZPH](http://twitter.com/_ZPH)
+Crafted with care by Zander. Reach out and say hi at [@_ZPH](http://twitter.com/_ZPH) or [civet.ws](http://www.civet.ws)
