@@ -35,7 +35,6 @@ Once gem is pushed to RubyGems:
 
 
 ```
-
     CLIENT_ID
     CLIENT_SECRET
     ACCESS_TOKEN
