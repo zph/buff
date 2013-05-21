@@ -2,7 +2,8 @@
 
 Buff is a Buffer API Wrapper written in Ruby.  It provides more thorough API coverage than the existing gem.
 
-Since the gem is currently in ALPHA development, the interface is prone to change.  Please wait until v0.1.0 is released to become reliant on interface.
+Since the gem is currently in ALPHA development, the interface is prone to change.  Please wait until v0.1.0 is released to become reliant on interface. As it stands, all of the basic API calls in BufferApp's spec are available.  Some of the optional params are yet to be implemented.
+
 
 ## Installation
 
@@ -14,7 +15,7 @@ Once Buff is released as a gem, the following instructions will work. For now pl
 
 Add this line to your application's Gemfile:
 
-    gem 'buff', :git => 'zph/buff'
+    gem 'buff', :github => 'zph/buff'
 
 And then execute:
 
@@ -27,25 +28,25 @@ Once gem is pushed to RubyGems:
 
 ## Usage
 
-  * Note which API coverage exists and have fun!
-  * Authentication is not included in this gem (Try OAuth-buffer)
+  * Note that some of the optional params are not implemented!
+  * All methods are tested with Rspec and WebMock. Not all methods have integration tests that reach out to the live Buffer API servers.  Proceed with caution until Buff reaches v0.1.0 and submit issues on Github Issues tab.
+  * Authentication is not included in this gem (Try OAuth-buffer) or use the single API key given when registering your own Buffer Dev credentials.
 
 ## API Coverage
 
 #### Implemented
 
 * User
-* Profiles (:get)
-* Updates (:get)
-* Updates (:post, #create_update, #change_update_text, #destroy_update, #share_update, #shuffle_updates, #reorder_updates)
+* Profiles (:get, :post)
+* Updates (:get, :post)
 * Links
 * Info
 * Error Codes
 
 #### Not Implemented
 
-* Profiles (:post, #set_schedules)
 * Caching
+* Various optional params
 
 ## Contributing
 
@@ -55,8 +56,8 @@ Once gem is pushed to RubyGems:
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-Issues, advice and refactoring is welcome.
+Issues, refactoring, and feedback are all welcome.
 
 Also, this project is newcomer friendly!! We'd love to be your first Open Source Software contribution and would be happy to assist in that process.
 
-Reach out on Twitter [@_ZPH](http://twitter.com/_ZPH).
+Crafted with care by Zander. Reach out and say hi at [@_ZPH](http://twitter.com/_ZPH)
