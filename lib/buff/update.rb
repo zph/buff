@@ -8,7 +8,6 @@ module Buff
       end
 
       def updates_by_profile_id(id, options={})
-        optional_params = [ :page, :count, :since, :utc ]
         status = options.fetch(:status) do
           raise Buff::MissingStatus, "Include :pending or :sent in args"
         end
@@ -20,7 +19,6 @@ module Buff
       end
 
       def interactions_by_update_id(id, options={})
-        optional_params = [:page, :count, :event]
         response = get("/updates/#{id}/interactions.json", options)
         interactions = response['interactions'].map { |r| Buff::Interaction.new(r) }
         Buff::Interactions.new(
@@ -29,26 +27,15 @@ module Buff
       end
 
       def reorder_updates(profile_id, options={})
-        # order, optional: offset, utc
         options.fetch(:order) { raise ArgumentError }
-        response = post("/profiles/#{profile_id}/updates/reorder.json", options)
+        post("/profiles/#{profile_id}/updates/reorder.json", body: options)
       end
 
       def shuffle_updates(profile_id, options={})
-        # optional count, utc
-        response = post("/profiles/#{profile_id}/updates/shuffle.json", options)
+        response = post("/profiles/#{profile_id}/updates/shuffle.json", body: options)
       end
 
-        #TODO
       def create_update(options={})
-        # options = {
-        #   text: "bodytext",
-        #   profile_ids: ["230958239058", "23059u2350923"],
-        #   media: {
-        #     link: "http://example.com",
-        #     description: "That example page"
-        #   }
-        # }
         response = post("/updates/create.json", options)
         Hashie::Mash.new(JSON.parse response.body)
       end

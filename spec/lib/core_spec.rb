@@ -62,10 +62,4 @@ describe Buff::Client::Core do
     end
   end
 
-  describe "error_table" do
-    it "should report 1001 as appropriate message" do
-      table = Buff::Client::Core.error_table
-      table['1001'].should eq("Access token required.")
-    end
-  end
 end

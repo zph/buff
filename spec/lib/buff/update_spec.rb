@@ -108,7 +108,7 @@ describe Buff::Client do
         id_no = "4ecda256512f7ee521000001"
         stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4ecda256512f7ee521000001/updates/shuffle\.json\?access_token=.*}).
                  with(:body => {"count"=>"10"})
-        client.shuffle_updates(id_no, {count: 10})
+        client.shuffle_updates(id_no, count: 10)
       end
     end
     describe "#share_update" do
