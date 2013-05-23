@@ -7,7 +7,7 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 ## Installation
 
-[![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master) [![Build Status](https://travis-ci.org/zph/buff.png?branch=master)](https://travis-ci.org/zph/buff)
+[![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master) [![Build Status](https://travis-ci.org/zph/buff.png?branch=master)](https://travis-ci.org/zph/buff) [![Code Climate](https://codeclimate.com/github/zph/buff.png)](https://codeclimate.com/github/zph/buff)
 
 Once Buff is released as a gem, the following instructions will work. For now please `git clone` the repo.
 
