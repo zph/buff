@@ -17,5 +17,5 @@ test/version_tmp
 tmp
 notes.txt
 .DS_STORE
-spec/fixtures/
+spec/fixtures/updates_by_profile_id_sent.txt
 utility.rb
