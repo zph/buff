@@ -13,15 +13,15 @@ Once Buff is released as a gem, the following instructions will work. For now pl
 
 Add this line to your application's Gemfile to include HEAD code:
 
-    gem 'buff', :github => 'zph/buff'
+    `gem 'buff', :github => 'zph/buff'`
 
 And then execute:
 
-    $ bundle
+    `$ bundle`
 
 Or install RubyGems version, which will receive more attention to stability:
 
-    $ gem install buff
+    `$ gem install buff`
 
 ## Usage
 
