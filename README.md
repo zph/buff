@@ -7,11 +7,9 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 ## Installation
 
-[![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master)
+[![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master) [![Build Status](https://travis-ci.org/zph/buff.png?branch=master)](https://travis-ci.org/zph/buff)
 
 Once Buff is released as a gem, the following instructions will work. For now please `git clone` the repo.
-
-#### Note: Fixtures are not currently public. They will be uploaded after sensitive info is sanitized.
 
 Add this line to your application's Gemfile to include HEAD code:
 
@@ -28,7 +26,7 @@ Or install RubyGems version, which will receive more attention to stability:
 ## Usage
 
   * Note that some of the optional params are not implemented!
-  * All methods are tested with Rspec and WebMock. Not all methods have integration tests that reach out to the live Buffer API servers.  Proceed with caution until Buff reaches v0.1.0 and submit issues on Github Issues tab.
+  * All methods are tested with Rspec and WebMock. Most methods do not have integration tests that reach out to the live Buffer API servers.  Proceed with caution until Buff reaches v0.1.0 and submit issues on Github Issues tab.
   * Authentication is not included in this gem (Try OAuth-buffer) or use the single API key given when registering your own Buffer Dev credentials.
   * For convenience load credentials into `~/.bufferapprc` in the following layout.  This allows the `ACCESS_TOKEN` to be loaded into `Buff::ACCESS_TOKEN`:
 
