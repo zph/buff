@@ -18,7 +18,7 @@ module Buff
 
       def set_schedules(id, options)
         schedules = Buff::Encode.encode(options.fetch(:schedules) { raise ArgumentError })
-        response = post("/profiles/#{id}/schedules/update.json", body: {schedules: schedules} )
+        response = post("/profiles/#{id}/schedules/update.json", :body => {schedules: schedules} )
         Buff::Response.new(JSON.parse(response.body))
       end
     end

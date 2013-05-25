@@ -12,7 +12,7 @@ module Buff
   class Schedule < Hashie::Mash; end
   Schedules = Class.new(Array) do
     def dump
-      { schedules: self }.to_json
+      { :schedules => self }.to_json
     end
   end
 end

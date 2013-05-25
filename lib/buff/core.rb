@@ -5,14 +5,15 @@ module Buff
       ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).
         readlines[2].chomp
     end
+  rescue => x
+    raise x, "Bufferapprc appears to be malformed"
   end
 
   class Client
     module Core
       API_VERSION = "1"
 
-      attr_reader :error_table
-
+      private
 
       def get(path, options={})
         options.merge!(auth_query)

@@ -28,11 +28,11 @@ module Buff
 
       def reorder_updates(profile_id, options={})
         options.fetch(:order) { raise ArgumentError }
-        post("/profiles/#{profile_id}/updates/reorder.json", body: options)
+        post("/profiles/#{profile_id}/updates/reorder.json", :body => options)
       end
 
       def shuffle_updates(profile_id, options={})
-        response = post("/profiles/#{profile_id}/updates/shuffle.json", body: options)
+        response = post("/profiles/#{profile_id}/updates/shuffle.json", :body => options)
       end
 
       def create_update(options={})
