@@ -27,9 +27,8 @@ Or install RubyGems version, which will receive more attention to stability:
 
 ## Usage
 
-  * Note that some of the optional params are not implemented!
   * All methods are tested with Rspec and WebMock. Most methods do not have integration tests that reach out to the live Buffer API servers.  Proceed with caution until Buff reaches v0.1.0 and submit issues on Github Issues tab.
-  * Authentication is not included in this gem (Try OAuth-buffer) or use the single API key given when registering your own Buffer Dev credentials.
+  * Authentication is not included in this gem (Try OAuth-buffer2) or use the single API key given when registering your own Buffer Dev credentials.
   * For convenience load credentials into `~/.bufferapprc` in the following layout.  This allows the `ACCESS_TOKEN` to be loaded into `Buff::ACCESS_TOKEN`:
 
 
