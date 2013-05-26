@@ -210,9 +210,7 @@ EOF
           stub_request(:post, url).
             with(:body => body_content).
              to_return(:status => 200, :body => modify_update_response, :headers => {})
-          Pry.rescue do
           client.modify_update_text(id, body: body_content)
-          end
         end
       end
     end
