@@ -27,12 +27,14 @@ module Buff
 
       def post(path, options = {})
         params = merge_auth_token_and_query(options)
-        @connection.post do |req|
+        response = @connection.post do |req|
           req.url path.remove_leading_slash
           req.headers['Content-Type'] = "application/x-www-form-urlencoded"
           req.body = options[:body]
           req.params = params
         end
+
+        Hashie::Mash.new(JSON.parse response.body)
       end
 
       def merge_auth_token_and_query(options)

@@ -74,7 +74,45 @@ describe Buff::Client do
       end
 
       it "allows optional params" do
-        client.interactions_by_update_id(id, page: 2)
+        response =<<EOF
+{
+    "total":2,
+    "interactions":[
+        {
+            "_id":"50f98310c5ac415d7f2e74fd",
+            "created_at":1358509258,
+            "event":"favorite",
+            "id":"50f98310c5ac415d7f2e74fd",
+            "interaction_id":"292235127847788544",
+            "user":{
+                "username":"Crispy Potatoes",
+                "followers":160,
+                "avatar":"http:\/\/si0.twimg.com\/profile_images\/...",
+                "avatar_https":"https:\/\/si0.twimg.com\/profile_images\/...",
+                "twitter_id":"70712344376"
+            }
+        },
+        {
+            "_id":"50f8623ac5ac415d7f1d4f77",
+            "created_at":1358454592,
+            "event":"retweet",
+            "id":"50f8623ac5ac415d7f1d4f77",
+            "interaction_id":"292005842654461953",
+            "user":{
+                "username":"Lucky Number 8",
+                "followers":36079,
+                "avatar":"http:\/\/si0.twimg.com\/profile_images\/2901468678\/...",
+                "avatar_https":"https:\/\/si0.twimg.com\/profile_images\/2901468678\/...",
+                "twitter_id":"1423444249"
+            }
+        }
+    ]
+}
+EOF
+        stub_request(:get, "https://api.bufferapp.com/1/updates/4ecda476542f7ee521000006/interactions.json?access_token=some_token&count=3&event=favorite&page=2").
+           with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Faraday v0.8.7'}).
+           to_return(:status => 200, :body => response, :headers => {})
+        client.interactions_by_update_id(id, page: 2, count: 3, event: "favorite")
       end
     end
 
@@ -103,9 +141,8 @@ describe Buff::Client do
         stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4ecda256512f7ee521000001/updates/reorder\.json\?access_token=.*}).
                    with(:body => {"order"=>["4ecda256512f7ee521000001", "4ecda256512f7ee521000001", "4ecda256512f7ee521000001"]},
                         :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/x-www-form-urlencoded', 'User-Agent'=>'Faraday v0.8.7'}).
-                   to_return(:status => 200, :body => "", :headers => {})
+                   to_return(:status => 200, :body => reorder_updates_body_response, :headers => {})
         client.reorder_updates(id_no, order_hash)
-
       end
     end
 
@@ -113,16 +150,70 @@ describe Buff::Client do
       it "connects to appropriate endpoint" do
         id_no = "4ecda256512f7ee521000001"
         stub_request(:post, %r{https://api\.bufferapp\.com/1/profiles/4ecda256512f7ee521000001/updates/shuffle\.json\?access_token=.*}).
-                 with(:body => {"count"=>"10"})
+           with(:body => {"count"=>"10"}).
+           to_return(:status => 200, :body => '{"success": true,
+                                                "updates": [],
+                                                "time_to_shuffle":0.0041220188140869}')
         client.shuffle_updates(id_no, count: 10)
       end
     end
+
     describe "#share_update" do
       it "should connect to correct endpoint" do
         stub_request(:post, %r{https://api\.bufferapp\.com/1/updates/4ecda256512f7ee521000001/share\.json\?access_token=.*}).
-           to_return(:status => 200, :body => "{'success': true}", :headers => {})
+           to_return(:status => 200, :body => '{"success": true}', :headers => {})
         update_id = "4ecda256512f7ee521000001"
         client.share_update(update_id)
+      end
+    end
+
+    describe "#create_update" do
+
+      let(:body_content) do {text: "Text for an update",
+                                 profile_ids: [
+                  "4eb854340acb04e870000010",
+                  "4eb9276e0acb04bb81000067"
+                  ]}
+      end
+
+      let(:url) { %r{https://api\.bufferapp\.com/1/updates/create\.json\?access_token=.*} }
+
+      context "should create an update" do
+        it "when only required params are present" do
+          stub_request(:post, url).
+            with(:body => body_content).
+             to_return(:status => 200, :body => create_update_return_body, :headers => {})
+          client.create_update(body: body_content)
+        end
+        it "when optional params are included" do
+          body_content[:media] = {}
+          body_content[:media][:link] = "http://google.com"
+          body_content[:media][:description] = "Google Homepage"
+          stub_request(:post, url).
+            with(:body => body_content).
+             to_return(:status => 200, :body => create_update_return_body, :headers => {})
+          client.create_update(body: body_content)
+
+        end
+      end
+    end
+
+    describe "#modify_update_text" do
+
+      let(:body_content) { {text: "Text for an updated text for update"} }
+
+      id = "4ecda256512f7ee521000004"
+      let(:url) { %r{https://api\.bufferapp\.com/1/updates/#{ id }/update\.json\?access_token=.*} }
+
+      context "should modify an update" do
+        it "when params are present" do
+          stub_request(:post, url).
+            with(:body => body_content).
+             to_return(:status => 200, :body => modify_update_response, :headers => {})
+          Pry.rescue do
+          client.modify_update_text(id, body: body_content)
+          end
+        end
       end
     end
 

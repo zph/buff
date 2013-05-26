@@ -20,6 +20,88 @@ schedules[0][days][]=mon&schedules[0][days][]=tue&schedules[0][days][]=wed&sched
 EOF
 end
 
+def modify_update_response
+response =<<EOF
+{
+    "success" : true,
+    "buffer_count" : 10,
+    "buffer_percentage" : 20,
+    "update" : {
+        "id" : "4ecda256512f7ee521000004",
+        "client_id" : "4f850cc93733aa9301000002",
+        "created_at" : 1320703582,
+        "day" : "Saturday 26th November",
+        "due_at" : 1320742680,
+        "due_time" : "11:05 am",
+        "media" : {
+            "link" : "http://google.com",
+            "title" : "Google",
+            "description" : "The google homepage"
+        },
+        "profile_id" : "4eb854340acb04e870000010",
+        "profile_service" : "twitter",
+        "status" : "buffer",
+        "text" : "This is an edited update",
+        "text_formatted" : "This is an edited update",
+        "user_id" : "4eb9276e0acb04bb81000067",
+        "via" : "api"
+    }
+}
+EOF
+end
+
+def create_update_return_body
+create_update_return_body =<<EOF
+{
+"success" : true,
+"buffer_count" : 10,
+"buffer_percentage" : 20,
+"updates" : [{
+"id" : "4ecda256512f7ee521000004",
+"created_at" : 1320703582,
+"day" : "Saturday 26th November",
+"due_at" : 1320742680,
+"due_time" : "11:05 am",
+"media" : {
+"link" : "http://google.com",
+"title" : "Google",
+"description" : "The google homepage"
+},
+"profile_id" : "4eb854340acb04e870000010",
+"profile_service" : "twitter",
+"status" : "buffer",
+"text" : "This is an example update",
+"text_formatted" : "This is an example update",
+"user_id" : "4eb9276e0acb04bb81000067",
+"via" : "api"
+}
+]
+}
+EOF
+end
+def reorder_updates_body_response
+return_body =<<EOF
+{
+"success" : true,
+"updates" : [{
+"id" : "4eb854340acb04e870000010",
+"created_at" : 1320703582,
+"day" : "Saturday 5th November",
+"due_at" : 1320742680,
+"due_time" : "08:01 am",
+"profile_id" : "4eb854340acb04e870000010",
+"profile_service" : "twitter",
+"status" : "buffer",
+"text" : "3 Incredible Stories Made Possible Through Twitter j.mp/u...",
+"text_formatted" : "3 Incredible Stories Made Possible Through Twit...",
+"user_id" : "4eb9276e0acb04bb81000067",
+"via" : "safari"
+}
+]
+}
+EOF
+end
+
 def sample_schedules2
     [{ days: %w[mon tue wed],
       times: %w[12:00 17:00 18:00]},

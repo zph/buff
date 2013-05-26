@@ -9,19 +9,21 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 [![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master) [![Build Status](https://travis-ci.org/zph/buff.png?branch=master)](https://travis-ci.org/zph/buff) [![Code Climate](https://codeclimate.com/github/zph/buff.png)](https://codeclimate.com/github/zph/buff)
 
-Once Buff is released as a gem, the following instructions will work. For now please `git clone` the repo.
+For now please `git clone git@github.com:zph/buff.git` the repo
+
+Or
 
 Add this line to your application's Gemfile to include HEAD code:
 
-    `gem 'buff', :github => 'zph/buff'`
+`gem 'buff', :github => 'zph/buff'`
 
 And then execute:
 
-    `$ bundle`
+`$ bundle`
 
 Or install RubyGems version, which will receive more attention to stability:
 
-    `$ gem install buff`
+`$ gem install buff`
 
 ## Usage
 
@@ -53,10 +55,11 @@ Or install RubyGems version, which will receive more attention to stability:
 * Info
 * Error Codes
 
+Further Details [API Coverage](API_COVERAGE.md)
+
 #### Not Implemented
 
 * Caching
-* Various optional params
 
 ## Supported Ruby Implementations
 - MRI 2.0.0

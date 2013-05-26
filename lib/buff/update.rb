@@ -42,23 +42,28 @@ module Buff
       end
 
       def create_update(options = {})
-        response = post("/updates/create.json", options)
-        Hashie::Mash.new(JSON.parse response.body)
+        options[:body].fetch(:text) do
+          raise ArgumentError, "Must include text for update"
+        end
+        options[:body].fetch(:profile_ids) do
+          raise ArgumentError, "Must include array of profile_ids"
+        end
+        post("/updates/create.json", options)
       end
 
       def modify_update_text(update_id, options = {})
-        # text, (now, media, utc)
-        options.fetch(:text) { raise ArgumentError }
-        response = post("/updates/#{update_id}/update.json", options)
-        Hashie::Mash.new(JSON.parse response.body)
+        options[:body].fetch(:text) do
+          raise ArgumentError, "Must include updated text"
+        end
+        post("/updates/#{update_id}/update.json", options)
       end
 
-      def share_update(update_id, options = {})
-        post("/updates/#{update_id}/share.json", options)
+      def share_update(update_id)
+        post("/updates/#{update_id}/share.json")
       end
 
-      def destroy_update(update_id, options = {})
-        post("/updates/#{update_id}/destroy.json", options)
+      def destroy_update(update_id)
+        post("/updates/#{update_id}/destroy.json")
       end
 
       def check_id(id)

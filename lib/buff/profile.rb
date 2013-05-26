@@ -11,7 +11,7 @@ module Buff
         Buff::Profile.new(response)
       end
 
-      def profile_schedules_by_id(id)
+      def schedules_by_profile_id(id)
         response = get("/profiles/#{id}/schedules.json")
         response.map { |a_response| Buff::Schedule.new(a_response) }
       end
@@ -19,9 +19,8 @@ module Buff
       def set_schedules(id, options)
         schedules = Buff::Encode.encode(
                         options.fetch(:schedules) { raise ArgumentError })
-        response = post("/profiles/#{id}/schedules/update.json",
+        post("/profiles/#{id}/schedules/update.json",
                         body: { schedules: schedules })
-        Buff::Response.new(JSON.parse(response.body))
       end
     end
   end

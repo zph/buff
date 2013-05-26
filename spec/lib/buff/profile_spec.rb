@@ -47,14 +47,14 @@ describe Buff::Client::Profile do
     end
   end
 
-  describe "#profile_schedules_by_id" do
+  describe "#schedules_by_profile_id" do
     before(:each) do
       url = "#{base_path}/profiles/#{id}/schedules.json"
       fixture_name = 'profile_schedules_by_id.txt'
       stub_with_to_return(:get, url, fixture_name)
     end
 
-    let(:rash) { Buff::Client.new("some_token").profile_schedules_by_id(id) }
+    let(:rash) { Buff::Client.new("some_token").schedules_by_profile_id(id) }
 
     it "returns a rash collection" do
       rash[0].class.should eq(Buff::Schedule)
