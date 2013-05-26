@@ -19,6 +19,7 @@ module Buff
       end
 
       def interactions_by_update_id(id, options={})
+        check_id(id)
         response = get("/updates/#{id}/interactions.json", options)
         interactions = response['interactions'].map { |r| Buff::Interaction.new(r) }
         Buff::Interactions.new(

@@ -35,7 +35,7 @@ describe Buff::Client::Core do
          should eq(true)
     end
 
-    xit "does not delegate to #handle_response_code when code = 200" do
+    it "does not delegate to #handle_response_code when code = 200" do
       url = "#{base_path}/info/configuration.json"
       fixture_name = "link.txt"
       stub_with_to_return(:get, url, fixture_name)
@@ -43,11 +43,6 @@ describe Buff::Client::Core do
        client.info
     end
 
-    xit "transforms sample_schedule into correct formatted url" do
-      u = Addressable::URI.new
-      u.query_values = {schedules: sample_schedules[0]}
-      u.query.should eq(post_data)
-    end
   end
 
   describe "#handle_response_code" do

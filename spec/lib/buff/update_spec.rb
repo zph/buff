@@ -60,14 +60,20 @@ describe Buff::Client do
     end
 
     describe "#interactions_by_update_id" do
-      xit "requires an id"
-      xit "connects to the correct endpoint"
-      xit "returns an object where total is accessible"
-      it "allows optional params" do
-        url = "https://api.bufferapp.com/1/updates/4ecda476542f7ee521000006/interactions.json?access_token=some_token&page=2"
-        id = "4ecda476542f7ee521000006"
+      let(:url) { "https://api.bufferapp.com/1/updates/4ecda476542f7ee521000006/interactions.json?access_token=some_token&page=2" }
+      let(:id) { "4ecda476542f7ee521000006" }
+
+      before do
         stub_request(:get, url).
           to_return(fixture("interactions_by_update_id.txt"))
+      end
+
+      it "requires an id" do
+        lambda { client.interactions_by_update_id(page: 2) }.
+          should raise_error(Buff::InvalidIdLength)
+      end
+
+      it "allows optional params" do
         client.interactions_by_update_id(id, page: 2)
       end
     end

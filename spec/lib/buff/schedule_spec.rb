@@ -68,7 +68,8 @@ EOF
   end
 
   describe "#set_schedules" do
-    xit "throw error if schedules is empty" do
+    let(:id) { "5160746d54f04a5e3a00000f" }
+    it "throw error if schedules is empty" do
       lambda {
         Buff::Client.new("some_token").set_schedules(id) }.
       should raise_error(ArgumentError)
