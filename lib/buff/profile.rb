@@ -2,7 +2,7 @@ module Buff
   class Client
     module Profile
       def profiles
-        response = get("/profiles.json" )
+        response = get("/profiles.json")
         response.map { |profile| Buff::Profile.new(profile) }
       end
 
@@ -13,12 +13,14 @@ module Buff
 
       def profile_schedules_by_id(id)
         response = get("/profiles/#{id}/schedules.json")
-        response.map { |response| Buff::Schedule.new(response) }
+        response.map { |a_response| Buff::Schedule.new(a_response) }
       end
 
       def set_schedules(id, options)
-        schedules = Buff::Encode.encode(options.fetch(:schedules) { raise ArgumentError })
-        response = post("/profiles/#{id}/schedules/update.json", :body => {schedules: schedules} )
+        schedules = Buff::Encode.encode(
+                        options.fetch(:schedules) { raise ArgumentError })
+        response = post("/profiles/#{id}/schedules/update.json",
+                        body: { schedules: schedules })
         Buff::Response.new(JSON.parse(response.body))
       end
     end

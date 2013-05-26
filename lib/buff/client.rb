@@ -12,14 +12,14 @@ module Buff
     def initialize(access_token)
       @access_token = access_token
       url = "https://api.bufferapp.com/1/"
-      @connection = Faraday.new(:url => url) do |faraday|
+      @connection = Faraday.new(url: url) do |faraday|
         faraday.request  :url_encoded
         faraday.adapter  Faraday.default_adapter
       end
     end
 
     def auth_query
-      { :access_token => @access_token }
+      { access_token: @access_token }
     end
 
   end

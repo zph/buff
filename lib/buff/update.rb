@@ -1,59 +1,64 @@
 module Buff
   class Client
     module Update
-      def update_by_id(id, options={})
+      def update_by_id(id, options = {})
         check_id(id)
         response = get("/updates/#{id}.json")
         Buff::Update.new(response)
       end
 
-      def updates_by_profile_id(id, options={})
+      def updates_by_profile_id(id, options = {})
         status = options.fetch(:status) do
           raise Buff::MissingStatus, "Include :pending or :sent in args"
         end
         options.delete(:status)
-        response = get("/profiles/#{id}/updates/#{status.to_s}.json", options )
+        response = get("/profiles/#{id}/updates/#{status.to_s}.json", options)
         updates = response['updates'].map { |r| Buff::Update.new(r) }
         Buff::Updates.new (
-              { total: response['total'], updates: updates } )
+              { total: response['total'],
+                updates: updates }
+        )
       end
 
-      def interactions_by_update_id(id, options={})
+      def interactions_by_update_id(id, options = {})
         check_id(id)
         response = get("/updates/#{id}/interactions.json", options)
-        interactions = response['interactions'].map { |r| Buff::Interaction.new(r) }
+        interactions = response['interactions'].map do |r|
+          Buff::Interaction.new(r)
+        end
         Buff::Interactions.new(
           { total: response['total'], interactions: interactions }
         )
       end
 
-      def reorder_updates(profile_id, options={})
+      def reorder_updates(profile_id, options = {})
         options.fetch(:order) { raise ArgumentError }
-        post("/profiles/#{profile_id}/updates/reorder.json", :body => options)
+        post("/profiles/#{profile_id}/updates/reorder.json", body: options)
       end
 
-      def shuffle_updates(profile_id, options={})
-        response = post("/profiles/#{profile_id}/updates/shuffle.json", :body => options)
+      def shuffle_updates(profile_id, options = {})
+        post("/profiles/#{profile_id}/updates/shuffle.json",
+                        body: options)
       end
 
-      def create_update(options={})
+      def create_update(options = {})
         response = post("/updates/create.json", options)
         Hashie::Mash.new(JSON.parse response.body)
       end
 
-      def modify_update_text(update_id, options={})
+      def modify_update_text(update_id, options = {})
         # text, (now, media, utc)
         options.fetch(:text) { raise ArgumentError }
         response = post("/updates/#{update_id}/update.json", options)
         Hashie::Mash.new(JSON.parse response.body)
       end
 
-      def share_update(update_id, options={})
-        response = post("/updates/#{update_id}/share.json", options)
+      def share_update(update_id, options = {})
+        post("/updates/#{update_id}/share.json", options)
       end
 
-      def destroy_update(update_id, options={})
-        response = post("/updates/#{update_id}/destroy.json", options)
+      def destroy_update(update_id, options = {})
+        post("/updates/#{update_id}/destroy.json", options)
       end
 
       def check_id(id)

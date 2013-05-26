@@ -15,17 +15,17 @@ module Buff
 
       private
 
-      def get(path, options={})
+      def get(path, options = {})
         options.merge!(auth_query)
         response = @connection.get do |req|
-          req.url path.gsub(%r{^\/}, '')
+          req.url path.remove_leading_slash
           req.params = options
         end
 
         interpret_response(response)
       end
 
-      def post(path, options={})
+      def post(path, options = {})
         params = merge_auth_token_and_query(options)
         @connection.post do |req|
           req.url path.remove_leading_slash
@@ -34,7 +34,6 @@ module Buff
           req.params = params
         end
       end
-
 
       def merge_auth_token_and_query(options)
         if options[:query]
@@ -53,11 +52,11 @@ module Buff
       end
 
       def handle_response_code(response)
-        error = Hashie::Mash.new( response.body )
+        error = Hashie::Mash.new(response.body)
         raise Buff::APIError unless error.code
-        error_explanation = "Buffer API Error Code: #{error.code}\n" +
-                            "HTTP Code: #{response.code}." +
-                            "Description: #{error.error}"
+        "Buffer API Error Code: #{error.code}\n" +
+        "HTTP Code: #{response.code}." +
+        "Description: #{error.error}"
       end
     end
   end
@@ -65,6 +64,6 @@ end
 
 class String
   def remove_leading_slash
-    gsub(%r{^\/}, '')
+    gsub(/^\//, '')
   end
 end
