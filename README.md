@@ -58,6 +58,10 @@ Or install RubyGems version, which will receive more attention to stability:
 * Caching
 * Various optional params
 
+## Supported Ruby Implementations
+- MRI 2.0.0
+- Others likely work but are not included in CI Server
+
 ## Contributing
 
 1. Fork it
