@@ -1,31 +1,33 @@
 module Buff
   class Encode
-    def self.encode(arg)
-      raise_error_for_incorrect_input(arg)
-      arg = arg[:schedules] if arg.respond_to?(:keys)
-      output = []
-      arg.each_with_index do |item, index|
-        process_schedule(output, item, index)
+    class << self
+      def encode(arg)
+        raise_error_for_incorrect_input(arg)
+        arg = arg[:schedules] if arg.respond_to?(:keys)
+        arg.map.with_index do |item, index|
+          process_schedule(item, index)
+        end.join("&")
       end
-      output.join("&")
-    end
 
-    private
+      private
 
-    def self.raise_error_for_incorrect_input(arg)
-      unless arg.kind_of?(Hash) || arg.kind_of?(Array)
-        raise ArgumentError, "Input must be/inherit from Hash or Array"
+      def raise_error_for_incorrect_input(arg)
+        unless arg.kind_of?(Hash) || arg.kind_of?(Array)
+          raise ArgumentError, "Input must be/inherit from Hash or Array"
+        end
       end
-    end
 
-    def self.process_schedule(output, item, index)
-      uri = Addressable::URI.new
-      uri.query_values = item
-      pairs = uri.query.split("&").map do |pair|
-        key , value = pair.split("=")
-        "schedules[#{index}][#{key}][]=#{value}"
+      def process_schedule(item, index)
+        pairs_for(item).map do |key, value|
+          "schedules[#{index}][#{key}][]=#{value}"
+        end.join("&")
       end
-      output << pairs.join("&")
+
+      def pairs_for(item)
+        uri = Addressable::URI.new
+        uri.query_values = item
+        uri.query.split("&").map {|p| p.split("=")}
+      end
     end
   end
 end

@@ -9,7 +9,7 @@ describe Buff::Client do
     describe "#update_by_id" do
 
       before do
-        stub_request(:get, "https://api.bufferapp.com/1/updates/4eb8565e0acb04bb82000004.json?access_token=some_token").
+        stub_request(:get, "https://api.bufferapp.com/1/updates/#{ id }.json?access_token=some_token").
                  to_return(fixture("update_by_id.txt"))
       end
       it "fails without an id" do
