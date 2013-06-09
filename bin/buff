@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift(File.dirname(__FILE__), '..', 'lib')
+
+require 'buff'
+
+_, _, access_token, profile_id = File.open(File.expand_path '~/.bufferapprc').readlines.map(&:chomp)
+
+client = Buff::Client.new(access_token)
+id = client.profiles[profile_id.to_i].id
+
+response = client.create_update(body: {text: ARGV.join(" "), profile_ids: [ id ] } )
+puts response if ENV['BUFF_DEBUG']
