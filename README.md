@@ -29,19 +29,42 @@ Or install RubyGems version, which will receive more attention to stability:
 
   * All methods are tested with Rspec and WebMock. Most methods do not have integration tests that reach out to the live Buffer API servers.  Proceed with caution until Buff reaches v0.1.0 and submit issues on Github Issues tab.
   * Authentication is not included in this gem (Try OAuth-buffer2) or use the single API key given when registering your own Buffer Dev credentials.
+  * Commandline bin is provided to enable posting of updates:
+    `buff Super witty stuff that fits in 140 chars`
+    Will post to your first account when setup following instructions below.
+    _A more convenient setup is planned in future releases._
   * For convenience load credentials into `~/.bufferapprc` in the following layout.  This allows the `ACCESS_TOKEN` to be loaded into `Buff::ACCESS_TOKEN`:
 
 
 ```
-    CLIENT_ID
-    CLIENT_SECRET
     ACCESS_TOKEN
+    PROFILE_INDEX (default of 0)
 
     # Structure:
-    # client ID line 1
-    # client secret line 2
-    # Access Token: line 3
+    # Access Token: line 1
+    # Profile number, counting from zero
 ```
+
+## Access Token Instructions
+
+How to Get Started:
+====
+* Create a Developer API Token here: http://bufferapp.com/developers/apps/create.
+* Fill in Stuff. Your answers don't matter much for the purpose of this rudimentary setup.
+* Submit that form and wait a short period (~2 min )
+* Visit: http://bufferapp.com/developers/apps
+* Gather Access Token and place it on line 1 of this file.
+* Copy this file to the root of your user's home folder:
+ - ~/.bufferapprc
+* Set Line 2 to 0 if you only have one account to post to. Otherwise it's more complicated ;). Find me on Twitter and I can explain [@_ZPH](https://twitter.com/_ZPH).
+
+ Structure:
+ Line 1: Access Token
+ Line 2: Buffer Account number, ie posting to first account in list, use 0 (ie zero)
+
+TODO: convert to yaml and improve instructions
+ remove need for user to create their own App on bufferapp.com
+ Future versions will integrate with Buffer-OAuth system.
 
 ## API Coverage
 
