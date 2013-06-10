@@ -3,12 +3,12 @@ require 'pathname'
 module Buff
   begin
     #TODO: change from #expand_path to Pathname if appropriate
-    if File.exists?(File.expand_path("~/.bufferapprc"))
-      ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).
-        readlines[0].chomp
-    end
-  rescue => x
-    raise x, "Bufferapprc appears to be malformed"
+    # if File.exists?(File.expand_path("~/.bufferapprc"))
+    #   ACCESS_TOKEN = File.open(File.expand_path("~/.bufferapprc")).
+    #     readlines[0].chomp
+    # end
+  # rescue => x
+    # raise x, "Bufferapprc appears to be malformed"
   end
 
   class Client

@@ -4,10 +4,20 @@ $LOAD_PATH.unshift(File.dirname(__FILE__), '..', 'lib')
 
 require 'buff'
 
-access_token, profile_id = File.open(File.expand_path '~/.bufferapprc').readlines.map(&:chomp)
+begin
+  require 'yaml'
 
-client = Buff::Client.new(access_token)
-id = client.profiles[profile_id.to_i].id
+  options = YAML.load_file(File.expand_path('~/.bufferapprc'))
+  if options.class == String
+    options['access_token'], options['profile_index'] = options.split
+    options['verion'] = '0.0.0'
+  end
+rescue
+  puts "Please upgrade from older config file structure" if ENV['BUFF_DEBUG']
+end
+
+client = Buff::Client.new(options['access_token'])
+id = client.profiles[options['profile_index'].to_i].id
 
 response = client.create_update(body: {text: ARGV.join(" "), profile_ids: [ id ] } )
 puts response if ENV['BUFF_DEBUG']

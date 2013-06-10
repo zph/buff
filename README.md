@@ -37,34 +37,29 @@ Or install RubyGems version, which will receive more attention to stability:
 
 
 ```
-    ACCESS_TOKEN
-    PROFILE_INDEX (default of 0)
+    ---
+    ACCESS_TOKEN: (BufferApp OAuth Access Token)
+    PROFILE_INDEX: (default of 0)
+    VERSION: (Do not alter)
 
-    # Structure:
-    # Access Token: line 1
-    # Profile number, counting from zero
 ```
 
 ## Access Token Instructions
 
-How to Get Started:
+# How to Get Started:
 ====
-* Create a Developer API Token here: http://bufferapp.com/developers/apps/create.
-* Fill in Stuff. Your answers don't matter much for the purpose of this rudimentary setup.
-* Submit that form and wait a short period (~2 min )
-* Visit: http://bufferapp.com/developers/apps
-* Gather Access Token and place it on line 1 of this file.
-* Copy this file to the root of your user's home folder:
- - ~/.bufferapprc
+# Create a Developer API Token here: http://bufferapp.com/developers/apps/create.
+# Fill in Stuff. Your answers don't matter much for the purpose of this rudimentary setup.
+# Submit that form and wait a short period (~2 min )
+# Visit: http://bufferapp.com/developers/apps
+# Gather Access Token and place it after the word "access_token"
+# Copy this file to the root of your user's home folder:
 * Set Line 2 to 0 if you only have one account to post to. Otherwise it's more complicated ;). Find me on Twitter and I can explain [@_ZPH](https://twitter.com/_ZPH).
+#   - ~/.bufferapprc
 
- Structure:
- Line 1: Access Token
- Line 2: Buffer Account number, ie posting to first account in list, use 0 (ie zero)
-
-TODO: convert to yaml and improve instructions
- remove need for user to create their own App on bufferapp.com
- Future versions will integrate with Buffer-OAuth system.
+#TODO: improve instructions
+# remove need for user to create their own App on bufferapp.com
+# Future versions will integrate with Buffer-OAuth system.
 
 ## API Coverage
 
