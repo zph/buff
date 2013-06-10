@@ -46,8 +46,8 @@ Or install RubyGems version, which will receive more attention to stability:
 
 ## Access Token Instructions
 
-# How to Get Started:
-====
+#### How to Get Started:
+
 * Create a Developer API Token here: http://bufferapp.com/developers/apps/create.
 * Fill in Stuff. Your answers don't matter much for the purpose of this rudimentary setup.
 * Submit that form and wait a short period (~2 min )
