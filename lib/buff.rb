@@ -15,6 +15,7 @@ require "buff/encode"
 require "buff/datastructure"
 require "buff/info"
 require "buff/client"
+require "buff/setup"
 
 module Buff
 end
