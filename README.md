@@ -9,13 +9,13 @@ Since the gem is currently in ALPHA development, the interface is prone to chang
 
 [![Coverage Status](https://coveralls.io/repos/zph/buff/badge.png?branch=master)](https://coveralls.io/r/zph/buff?branch=master) [![Build Status](https://travis-ci.org/zph/buff.png?branch=master)](https://travis-ci.org/zph/buff) [![Code Climate](https://codeclimate.com/github/zph/buff.png)](https://codeclimate.com/github/zph/buff)
 
-For now please `git clone git@github.com:zph/buff.git` the repo
+For now please `git clone git@github.com:bufferapp/buffer-ruby.git` the repo
 
 Or
 
 Add this line to your application's Gemfile to include HEAD code:
 
-`gem 'buff', :github => 'zph/buff'`
+`gem 'buff', :github => 'bufferapp/buffer-ruby'`
 
 And then execute:
 
