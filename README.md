@@ -60,6 +60,7 @@ Or install RubyGems version, which will receive more attention to stability:
 *TODO: improve instructions
 * remove need for user to create their own App on bufferapp.com
 * Future versions will integrate with Buffer-OAuth system.
+* Raise error if message is beyond the character limit.
 
 ## API Coverage
 
