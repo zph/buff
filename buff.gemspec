@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rb-fsevent'
   gem.add_development_dependency 'growl'
   gem.add_development_dependency 'pry-full'
+  gem.add_development_dependency 'rake'
 
   gem.add_runtime_dependency 'multi_json'
   gem.add_runtime_dependency 'yajl-ruby'
@@ -31,5 +32,4 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'faraday_middleware'
   gem.add_runtime_dependency 'rash'
   gem.add_runtime_dependency 'addressable'
-  gem.add_runtime_dependency 'rake'
 end
