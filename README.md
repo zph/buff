@@ -57,10 +57,18 @@ Or install RubyGems version, which will receive more attention to stability:
 * Set Line 2 to 0 if you only have one account to post to. Otherwise it's more complicated ;). Find me on Twitter and I can explain [@_ZPH](https://twitter.com/_ZPH).
 *   - ~/.bufferapprc
 
-*TODO: improve instructions
-* remove need for user to create their own App on bufferapp.com
-* Future versions will integrate with Buffer-OAuth system.
-* Raise error if message is beyond the character limit.
+## TODO:
+
+* Improve instructions
+
+#### Future versions will integrate with Buffer-OAuth system.
+* Determine if there is a way to use a single Application rather than creating unique ones per user.
+* Integrate Launchy for the purpose of launching browser window.
+* Possible to model behavior on [ t.gem ](https://github.com/sferik/t/blob/master/lib/t/cli.rb#L56-L113)
+
+#### Raise error if message is beyond the character limit.
+* Accomplish this via [ Twitter Text library ](https://github.com/twitter/twitter-text-rb)
+* Refactor to simplify use of default params
 
 ## API Coverage
 
