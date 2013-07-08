@@ -6,6 +6,10 @@ require 'json'
 require 'coveralls'
 Coveralls.wear!
 
+def travis?
+  ENV['TRAVIS_CI']
+end
+
 def fixture_path
   File.expand_path(File.join("..", "fixtures"), __FILE__)
 end
