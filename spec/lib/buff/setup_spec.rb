@@ -9,14 +9,11 @@ describe Buff::Setup do
     it "sets the default path" do
       expect(setup.path).to eq("~/.bufferapprc")
     end
+  end
+  context "verifies whether rc file exists" do
     it "fails with error when specified file not found" do
       lambda { bad_config_setup.path }.should
         raise_error(Buff::Error::ConfigFileMissing)
-    end
-  end
-  context "verifies whether rc file exists" do
-    it "documents when rc file not present" do
-      expect(bad_config_setup.exists?).to eq(false)
     end
     it "documents when rc file is present" do
       expect(setup.exists?).to eq(true)
