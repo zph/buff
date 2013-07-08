@@ -57,7 +57,7 @@ module Buff
 
       def handle_response_code(response)
         error = Hashie::Mash.new(response.body)
-        raise Buff::APIError unless error.code
+        raise Buff::Error::APIError unless error.code
         "Buffer API Error Code: #{error.code}\n" +
         "HTTP Code: #{response.code}." +
         "Description: #{error.error}"

@@ -37,7 +37,7 @@ describe Buff::Client do
 
       it "fails without a :status arg" do
         lambda { client.updates_by_profile_id(profile_id)}.
-          should raise_error(Buff::MissingStatus)
+          should raise_error(Buff::Error::MissingStatus)
       end
 
       it "connects to the correct endpoint" do
@@ -70,7 +70,7 @@ describe Buff::Client do
 
       it "requires an id" do
         lambda { client.interactions_by_update_id(page: 2) }.
-          should raise_error(Buff::InvalidIdLength)
+          should raise_error(Buff::Error::InvalidIdLength)
       end
 
       it "allows optional params" do
@@ -122,7 +122,7 @@ EOF
                  to_return(:status => 200, :body => "", :headers => {})
         id = "4eb8565e0acb04bb82000004X"
         lambda { client.update_by_id(id) }.
-          should raise_error(Buff::InvalidIdLength)
+          should raise_error(Buff::Error::InvalidIdLength)
       end
 
       it "fails if id is not numbers and a-f" do
@@ -130,7 +130,7 @@ EOF
                  to_return(:status => 200, :body => "", :headers => {})
         id = "4eb8565e0acb04bb8200000X"
         lambda { client.update_by_id(id) }.
-          should raise_error(Buff::InvalidIdContent)
+          should raise_error(Buff::Error::InvalidIdContent)
       end
     end
 

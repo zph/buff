@@ -52,7 +52,7 @@ describe Buff::Client::Core do
         url = "#{base_path}/updates/#{id}.json?access_token=some_token"
         stub_with_to_return(:get, url, "update_by_id_non_auth.txt")
         lambda { client.update_by_id(id) }.
-          should raise_error(Buff::APIError)
+          should raise_error(Buff::Error::APIError)
       end
     end
   end

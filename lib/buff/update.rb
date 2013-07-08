@@ -9,7 +9,7 @@ module Buff
 
       def updates_by_profile_id(id, options = {})
         status = options.fetch(:status) do
-          raise Buff::MissingStatus, "Include :pending or :sent in args"
+          raise Buff::Error::MissingStatus, "Include :pending or :sent in args"
         end
         options.delete(:status)
         response = get("/profiles/#{id}/updates/#{status.to_s}.json", options)
@@ -67,8 +67,8 @@ module Buff
       end
 
       def check_id(id)
-        raise Buff::InvalidIdLength unless id.length == 24
-        raise Buff::InvalidIdContent unless id[/^[a-f0-9]+$/i]
+        raise Buff::Error::InvalidIdLength unless id.length == 24
+        raise Buff::Error::InvalidIdContent unless id[/^[a-f0-9]+$/i]
       end
     end
   end
