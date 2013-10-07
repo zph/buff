@@ -29,6 +29,7 @@ module Buff
 
       def post(path, options = {})
         params = merge_auth_token_and_query(options)
+        params.merge!(options)
         response = @connection.post do |req|
           req.url path.remove_leading_slash
           req.headers['Content-Type'] = "application/x-www-form-urlencoded"

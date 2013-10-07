@@ -7,11 +7,19 @@ require 'buff'
 begin
   require 'yaml'
 
+  rc_file_path = File.expand_path('~/.bufferapprc')
+  raise Errno::ENOENT unless File.exists?(rc_file_path)
+
   options = YAML.load_file(File.expand_path('~/.bufferapprc'))
   if options.class == String
-    options['access_token'], options['profile_index'] = options.split
+    options_str = options.dup
+    options = Hash.new
+    options['access_token'], options['profile_index'] = options_str.split
     options['verion'] = '0.0.0'
   end
+rescue Errno::ENOENT
+  puts "You're missing the ~/.bufferapprc file. See the README for info."
+  exit 1
 rescue
   puts "Please upgrade from older config file structure" if ENV['BUFF_DEBUG']
 end
@@ -19,5 +27,5 @@ end
 client = Buff::Client.new(options['access_token'])
 id = client.profiles[options['profile_index'].to_i].id
 
-response = client.create_update(body: {text: ARGV.join(" "), profile_ids: [ id ] } )
+response = client.create_update(body: {text: ARGV.join(" "), profile_ids: [ id ] })
 puts response if ENV['BUFF_DEBUG']
