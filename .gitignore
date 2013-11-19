@@ -20,3 +20,4 @@ notes.txt
 spec/fixtures/updates_by_profile_id_sent.txt
 utility.rb
 tags
+vendor/
