@@ -1,0 +1,7 @@
+require 'buff' # Gem require
+require 'pry'  # Pry for exploring and demo
+
+client = Buff::Client.new(Buff::ACCESS_TOKEN) # Setup a client instance
+id = client.profiles[2].id                    # Grab a profile id
+updates = client.updates_by_profile_id(id, status: :sent) # Gather a set of updates
+binding.pry # Enter pry demo, let's do it.
