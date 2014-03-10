@@ -1,5 +1,5 @@
-require "faraday"
 require "faraday_middleware"
+require "faraday"
 require "json"
 require "rash"
 require "addressable/uri"
