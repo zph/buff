@@ -1,5 +1,7 @@
 # Buff
 
+https://blog.xargs.io/2013/05/buff-a-gem-that-puts-muscle-in-the-buffer-api/
+
 DEPRECATED
 
 * Use: https://github.com/bufferapp/buffer-ruby (which is the live fork of this codebase)
